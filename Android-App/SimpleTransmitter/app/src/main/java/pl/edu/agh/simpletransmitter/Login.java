@@ -3,6 +3,7 @@ package pl.edu.agh.simpletransmitter;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -31,6 +32,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -186,7 +188,15 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
             // perform the user login attempt.
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            AsyncTask<Void, Void, Boolean> execute = mAuthTask.execute((Void) null);
+            try {
+                if (execute.get()) {
+                    startActivity(new Intent(getApplicationContext(), Start.class));
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                //TODO: add logger here
+                e.printStackTrace();
+            }
         }
     }
 
@@ -324,7 +334,7 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
             }
 
             // TODO: register the new account here.
-            return true;
+            return false;
         }
 
         @Override
