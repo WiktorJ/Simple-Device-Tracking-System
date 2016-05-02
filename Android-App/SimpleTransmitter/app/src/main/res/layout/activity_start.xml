@@ -38,8 +38,30 @@
         android:id="@+id/thirdLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_below="@+id/secondView"/>
+        android:orientation="vertical"
+        android:layout_below="@+id/secondView">
+
+
+        <Button
+            android:id="@+id/logout_button"
+            style="?android:textAppearanceSmall"
+            android:onClick="logoutOnClick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/logout_text"
+            android:textStyle="bold"
+            android:background="@color/logout_color"/>
+
+        <TextView
+            android:id="@+id/txtAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginTop="20dp"
+            />
+        </LinearLayout>
     
 
 

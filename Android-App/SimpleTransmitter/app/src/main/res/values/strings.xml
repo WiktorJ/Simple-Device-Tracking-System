@@ -13,6 +13,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="stop_text">"Press to stop</string>
-    <string name="start_text">"Press to start</string>
+    <string name="stop_text">Press to stop</string>
+    <string name="start_text">Press to start</string>
+    <string name="logout_text">Finish and logout</string>
 </resources>
