@@ -3,7 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="start_tracking_color">#eeeeee</color>
+    <color name="start_tracking_color">#cbd4c4</color>
     <color name="stop_tracking_color">#00ff1b</color>
     <color name="logout_color">#303F9F</color>
 </resources>
