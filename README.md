@@ -23,7 +23,6 @@ Web client is an AngularJS application. To install it, type following commands:
 ```
 npm install
 bower install
-
 ```
 To run client application, open an ```index.html``` file in your web browser. After successful run, on the console should be
 visible "Client application started successfully." log.

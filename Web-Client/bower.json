@@ -1,15 +1,18 @@
 {
-  "name": "angular-seed",
-  "description": "A starter project for AngularJS",
-  "version": "0.0.0",
-  "homepage": "https://github.com/angular/angular-seed",
+  "name": "Simple-Device-Tracking-System",
+  "description": "Simple Device Tracking System created as a project connected to Web Applications Technology Course, AGH UST Krakow.",
+  "version": "1.0.0",
+  "homepage": "https://github.com/WiktorJ/Simple-Device-Tracking-System",
   "license": "MIT",
-  "private": true,
   "dependencies": {
     "angular": "~1.4.0",
     "angular-route": "~1.4.0",
     "angular-loader": "~1.4.0",
     "angular-mocks": "~1.4.0",
-    "html5-boilerplate": "~5.2.0"
+    "angularjs-geolocation": "^0.1.1",
+    "html5-boilerplate": "~5.2.0",
+    "bootstrap": "^3.3.5",
+    "modernizr": "^3.0.0",
+    "holderjs": "^2.8"
   }
 }
