@@ -19,8 +19,8 @@ public class Utils {
         JSONObject requestObject = new JSONObject();
         requestObject.put("type", "update");
         JSONObject jsonObject = new JSONObject();
-        String lat = "0";
-        String lon = "0";
+        String lat = "9999";
+        String lon = "9999";
         if(location != null) {
             lat = Double.toString(location.getLatitude());
             lon = Double.toString(location.getLongitude());
@@ -28,6 +28,15 @@ public class Utils {
         jsonObject.put(LATITUDE, lat);
         jsonObject.put(LONGITUDE, lon);
         jsonObject.put("stop", stop);
+        jsonObject.put("timestamp", getTimestamp());
+        requestObject.put("data", jsonObject);
+        return requestObject;
+    }
+
+    public static JSONObject buildKeepAliveJSON() throws JSONException {
+        JSONObject requestObject = new JSONObject();
+        requestObject.put("type", "keepAlive");
+        JSONObject jsonObject = new JSONObject();
         jsonObject.put("timestamp", getTimestamp());
         requestObject.put("data", jsonObject);
         return requestObject;
