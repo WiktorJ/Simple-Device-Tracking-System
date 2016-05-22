@@ -333,7 +333,6 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
                 }
             }
 
-            // TODO: register the new account here.
             return false;
         }
 
