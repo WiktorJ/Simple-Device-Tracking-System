@@ -121,7 +121,6 @@ public class Start extends AppCompatActivity {
             }
             // Register the listener with the Location Manager to receive location updates
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-            keepAliveFlag = true;
             keepAliveTask = keepAliveScheduler.scheduleAtFixedRate(new Runnable() {
                 @Override
                 public void run() {
