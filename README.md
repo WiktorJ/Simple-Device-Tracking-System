@@ -12,21 +12,25 @@ Maps and localization are provided by Google API.
 # Installation
 
 ## Web server
-Web server is a Node.js application. To install and run it, type following commands:
+Web server is a Node.js application. To install and run it locally, type following commands:
 ```
 npm install
-node app.js
+npm start
 ```
+Now type in your web browser: ```localhost:3000```. The server is running there.
+
+Please note that server-side code is also deployed on [Heroku](https://devices-tracking-server.herokuapp.com/).
 
 ## Web client
-Web client is an AngularJS application. To install it, type following commands:
+Web client is an AngularJS application. To install and run it, type following command:
 ```
-npm install
-bower install
+npm start
 ```
-To run client application, open an ```index.html``` file in your web browser. After successful run, on the console should be
-visible "Client application started successfully." log.
+Now type in your web browser: ```localhost:8000```. The client-side web application is running there. Please note that
+```npm start``` script executes: ```npm install``` and ```bower install``` commands. You don't have to call these commands explicitly.
 
 Note that if you are building on Windwos OS and ```npm install``` command gives you an error, you need have installed at least MS Visual C++ Build Tools.
 
 ## Android application
+Android application has been created using Android Studio development tool, so we encourage to run or emulate this application using
+Android Studio too. However the way of running mobile client is usually up to you.
