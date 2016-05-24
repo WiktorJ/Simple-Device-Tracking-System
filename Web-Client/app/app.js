@@ -7,12 +7,12 @@ angular.module('DeviceTrackingSystem', ['ngRoute', 'DeviceTrackingSystem.version
             .otherwise({redirectTo: '/'});
     })
 
-    .controller('mainController', function ($http) {
+    .controller('mainController', function ($http, $interval) {
         console.log("Client application started successfully.");
 
         /** Initializing a map. **/
 
-        if(!map) {
+        if (!map) {
             var map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: 50.04, lng: 19.57},
                 scrollwheel: false,
@@ -33,55 +33,71 @@ angular.module('DeviceTrackingSystem', ['ngRoute', 'DeviceTrackingSystem.version
 
         /** HTTP request to the server and preparing data to display. **/
 
+        var previouslyRetrievedData = [];
         var userID = 0;
-        $http.get("https://devices-tracking-server.herokuapp.com/location/users/" + userID)
-            .success(function (data) {
-                var routeRequest;
 
-                if(data.length == 0) {
-                    console.log("Nothing to show. There is no GPS data for this user.");
-                }
-                else if(data.length == 1) {
-                    var singlePointCoordinates = new google.maps.LatLng(data[0].latitude, data[0].longitude);
+        var locationRequest = function () {
+            $http.get("https://devices-tracking-server.herokuapp.com/location/users/" + userID)
+                .success(function (data) {
+                    // If there is no new entry for this user, return this function.
+                    if(typeof previouslyRetrievedData[userID] != 'undefined' && previouslyRetrievedData[userID].length == data.length) {
+                        return;
+                    }
 
-                    routeRequest = {
-                        origin: singlePointCoordinates,
-                        destination: singlePointCoordinates,
-                        travelMode: travelMode
-                    };
-                }
-                else {
-                    var startPoint = data.shift();
-                    var endPoint = data.pop();
-                    var wayPoints = [];
+                    // Copy retrieved data as recently received (will be compared with data retrieved during next HTTP/GET request.
+                    previouslyRetrievedData[userID] = data.slice();
 
-                    data.forEach(function (wayPoint) {
-                        wayPoints.push({
-                            location: new google.maps.LatLng(wayPoint.latitude, wayPoint.longitude),
-                            stopover: wayPoint.stop
-                        })
-                    });
+                    var routeRequest;
 
-                    routeRequest = {
-                        origin: new google.maps.LatLng(startPoint.latitude, startPoint.longitude),
-                        destination: new google.maps.LatLng(endPoint.latitude, endPoint.longitude),
-                        waypoints: wayPoints,
-                        travelMode: travelMode
-                    };
-                }
+                    if (data.length == 0) {
+                        console.log("Nothing to show. There is no GPS data for this user.");
+                    }
+                    else if (data.length == 1) {
+                        var singlePointCoordinates = new google.maps.LatLng(data[0].latitude, data[0].longitude);
 
-                calculateAndDisplayRoute(routeRequest);
-            })
-            .error(function (data) {
-                console.log("Error " + data);
-            });
+                        routeRequest = {
+                            origin: singlePointCoordinates,
+                            destination: singlePointCoordinates,
+                            travelMode: travelMode
+                        };
+                    }
+                    else {
+                        var startPoint = data.shift();
+                        var endPoint = data.pop();
+                        var wayPoints = [];
+
+                        data.forEach(function (wayPoint) {
+                            wayPoints.push({
+                                location: new google.maps.LatLng(wayPoint.latitude, wayPoint.longitude),
+                                stopover: wayPoint.stop
+                            })
+                        });
+
+                        routeRequest = {
+                            origin: new google.maps.LatLng(startPoint.latitude, startPoint.longitude),
+                            destination: new google.maps.LatLng(endPoint.latitude, endPoint.longitude),
+                            waypoints: wayPoints,
+                            travelMode: travelMode
+                        };
+                    }
+
+                    calculateAndDisplayRoute(routeRequest);
+                })
+                .error(function (data) {
+                    console.log("Error " + data);
+                });
+        };
+
+        locationRequest();
+        // TODO: Poll server for location data periodically. Uncomment this line on production. Now commented because of economy reasons.
+        // $interval(locationRequest, 5000);
 
 
         /** Route directions drawing. **/
-        
+
         function calculateAndDisplayRoute(routeRequest) {
             directionsService.route(routeRequest, function (response, status) {
-                if(status === google.maps.DirectionsStatus.OK) {
+                if (status === google.maps.DirectionsStatus.OK) {
                     directionsDisplay.setDirections(response);
                 }
                 else {
