@@ -1,0 +1,34 @@
+<!-- Google Sign-In API script for handling logging in -->
+<script>
+    function onSignIn (googleUser) {
+        console.log(googleUser);
+
+        $("#logoutButton").show();
+        $("#showMapButton").show();
+    }
+
+    function onLoad() {
+        gapi.load('auth2,signin2', function() {
+            if(gapi.auth2.getAuthInstance() == null) {
+                gapi.auth2.init({
+                    'client_id': '515631213938-2cu7dq3pmo6ms54ffrtijlr02ooh1rau.apps.googleusercontent.com'
+                });
+            }
+
+            gapi.signin2.render('google_signin_button', {
+                'onsuccess': 'onSignIn'
+            });
+        });
+    }
+</script>
+
+<!-- Google Sign-In button -->
+<div style="text-align: center;">
+    <button id="logoutButton" class="centeredCustomButton" ng-click="signOut()">Logout</button>
+    <button id="showMapButton" class="centeredCustomButton" ng-click="showMap()">Show map</button>
+    <br/><br/>
+    <div id="google_signin_button" style="width: 100px; height: auto; margin: 0 auto; position: relative;"></div>
+</div>
+
+<!-- Google Sign-In API script -->
+<script src="https://apis.google.com/js/platform.js?onload=onLoad"></script>

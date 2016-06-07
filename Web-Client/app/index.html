@@ -45,31 +45,32 @@
 
     <!-- Business logic -->
     <script src="app.js"></script>
+    <script src="controllers/mapController.js"></script>
+    <script src="controllers/accountController.js"></script>
 </head>
-<body ng-controller="mainController">
-<div class="container">
+<body ng-app="DeviceTrackingSystem">
 
-    <div class="header">
-        <h3 class="text-muted">Device Tracking System.</h3>
+    <div class="container">
+
+        <!-- Common header -->
+        <div class="header" style="display: block;">
+            <h3 class="text-muted">Device Tracking System.</h3>
+        </div>
+
+        <!-- Routing-based body -->
+        <div ng-view></div>
+
+        <!-- Common footer -->
+        <hr/>
+        <div class="footer">
+            <p class="text-center">Created by: Grochal Bartłomiej, Jurasz Wiktor<br/>AGH UST Krakow, Faculty of Computer
+                Science, Electronics and Telecommunications</p>
+        </div>
     </div>
 
-    <div class="row content">
-        <!-- Google Map -->
-        <div id="map" style="height:645px; width: 645px; display:block; margin: auto; border: 2px solid;"></div>
-    </div>
-
-    <!-- Footer -->
-    <hr/>
-    <div class="footer">
-        <p class="text-center">Created by: Grochal Bartłomiej, Jurasz Wiktor<br/>AGH UST Krakow, Faculty of Computer
-            Science, Electronics and Telecommunications</p>
-
-    </div>
-</div>
-
-<!--[if lt IE 7]>
-<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
-    your browser</a> to improve your experience.</p>
-<![endif]-->
+    <!--[if lt IE 7]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+        your browser</a> to improve your experience.</p>
+    <![endif]-->
 </body>
 </html>
