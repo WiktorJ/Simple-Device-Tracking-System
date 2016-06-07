@@ -16,4 +16,5 @@
     <string name="stop_text">Press to stop</string>
     <string name="start_text">Press to start</string>
     <string name="logout_text">Finish and logout</string>
+    <string name="server_client_id">583088429615-npskj15ed319bim2k7a43ied661hm3jq.apps.googleusercontent.com</string>
 </resources>
