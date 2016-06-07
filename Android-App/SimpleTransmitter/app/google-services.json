@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "583088429615",
+    "project_id": "simple-device-tracking-system"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:583088429615:android:5d91c0e8ccdf0c81",
+        "android_client_info": {
+          "package_name": "pl.edu.agh.simpletransmitter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "583088429615-m8q2u4uflqj2gmkj0nd6s9fhv19rk949.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pl.edu.agh.simpletransmitter",
+            "certificate_hash": "5B542FDEB8C151EDB4E973BB5A23443876586B5D"
+          }
+        },
+        {
+          "client_id": "583088429615-npskj15ed319bim2k7a43ied661hm3jq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEXgzQz2qB-VW4nycfzvD8r9EItpv5Vrw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
