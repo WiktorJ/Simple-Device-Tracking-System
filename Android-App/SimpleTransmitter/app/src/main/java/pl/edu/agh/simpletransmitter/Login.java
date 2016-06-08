@@ -14,12 +14,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.games.stats.Stats;
 
-import java.io.IOException;
 
 import pl.edu.agh.simpletransmitter.security.AuthClient;
 import pl.edu.agh.simpletransmitter.security.AuthService;
-import pl.edu.agh.simpletransmitter.security.dao.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -77,7 +76,7 @@ public class Login extends AppCompatActivity {
             Log.d(TAG, "handleSignInResult:" + result.getStatus().getStatusMessage());
             if (result.isSuccess()) {
                 // Signed in successfully, show authenticated UI.
-                GoogleSignInAccount acct = result.getSignInAccount();
+                final GoogleSignInAccount acct = result.getSignInAccount();
                 TextView viewById = (TextView) findViewById(R.id.googleSingInTxt);
                 if (viewById != null) {
                     viewById.setVisibility(View.VISIBLE);
@@ -89,7 +88,9 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         if(response.code() == 200) {
-                            startActivity(new Intent(getApplicationContext(), Start.class));
+                            Intent intent = new Intent(getApplicationContext(), Start.class);
+                            intent.putExtra("idToken", acct.getIdToken());
+                            startActivity(intent);
                         } else if (response.code() == 401) {
                             //TODO: Authentication error. Should occur when token not matches with Google's
                             Log.d(TAG, "Cannot auth user");

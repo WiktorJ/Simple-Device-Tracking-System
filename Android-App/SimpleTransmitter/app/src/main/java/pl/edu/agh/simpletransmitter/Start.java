@@ -30,15 +30,17 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 //TODO: Handle situation when there is no internet or gps connection (probably some popup to user)
+//TODO: Add websocket closing when "back" button pressed
+//TODO: boolean value to check if socket is closed is not very reliable, provide better way
 public class Start extends AppCompatActivity {
 
     //TODO: This should be in properties
     private static final long initialDelay = 0;
     private static final long period = 2000;
     private static final TimeUnit unit = TimeUnit.MILLISECONDS;
-    private static final String WEBSOCKET_SERVER_ADDRESS = "ws://devices-tracking-server.herokuapp.com/location";
+//    private static final String WEBSOCKET_SERVER_ADDRESS = "ws://devices-tracking-server.herokuapp.com/location";
+        private static final String WEBSOCKET_SERVER_ADDRESS = "ws://192.168.0.15:5000/location";
     private static URI uri;
-    //    private static final String WEBSOCKET_SERVER_ADDRESS = "ws://localhost:5000/location";
 
     private boolean isTransmissionActive = false;
     private LocationManager locationManager;
@@ -48,6 +50,7 @@ public class Start extends AppCompatActivity {
     private ScheduledFuture<?> keepAliveTask;
     //This field is just for development process simplification, it will be remove before finall version
     private TextView tv;
+    private String idToken;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -59,6 +62,7 @@ public class Start extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+        this.idToken = getIntent().getExtras().getString("idToken");
         this.locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         this.tv = (TextView) findViewById(R.id.txtAddress);
         try {
@@ -68,13 +72,13 @@ public class Start extends AppCompatActivity {
             return;
         }
 
-        //TODO: This code of location listener is very long. Moving it to separate class should be considerate.
         this.locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 // Called when a new location is found by the network location provider.
                 try {
                     tv.setVisibility(View.VISIBLE);
                     JSONObject jsonObject = Utils.buildLocationJSON(location, false);
+                    jsonObject.put("authentication", idToken);
                     //TODO: Handle sending failure
                     locationWebSocketClient.send(jsonObject.toString());
 
@@ -125,7 +129,9 @@ public class Start extends AppCompatActivity {
                 @Override
                 public void run() {
                         try {
-                            locationWebSocketClient.send(Utils.buildKeepAliveJSON().toString());
+                            JSONObject jsonObject = Utils.buildKeepAliveJSON();
+                            jsonObject.put("authentication", idToken);
+                            locationWebSocketClient.send(jsonObject.toString());
                             Log.i("Start", "KeepAlive sent");
                         } catch (JSONException e) {
                             Log.e("Start", "Error in keepAlive sending thread", e);
@@ -139,6 +145,7 @@ public class Start extends AppCompatActivity {
             locationManager.removeUpdates(locationListener);
             keepAliveTask.cancel(true);
             try {
+                //TODO: Handle case when there is no connection already
                 locationWebSocketClient.send(Utils.buildLocationJSON(locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER), true).toString());
             } catch (JSONException e) {
                 Log.d("Start", "Error while sending stop message", e);

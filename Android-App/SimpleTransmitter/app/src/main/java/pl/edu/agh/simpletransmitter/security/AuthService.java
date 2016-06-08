@@ -1,7 +1,5 @@
 package pl.edu.agh.simpletransmitter.security;
 
-import android.util.Base64;
-
 import java.io.IOException;
 
 import okhttp3.Interceptor;
