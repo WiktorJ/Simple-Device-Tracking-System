@@ -10,4 +10,7 @@ import retrofit2.http.POST;
 public interface AuthClient {
     @POST("/auth/login")
     Call<User> login();
+
+    @POST("/auth/login")
+    Call<String> login2();
 }

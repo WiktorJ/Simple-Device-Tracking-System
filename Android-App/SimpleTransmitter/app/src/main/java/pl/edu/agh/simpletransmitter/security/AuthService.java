@@ -15,7 +15,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by wiktor on 02/06/16.
  */
 public class AuthService {
-    public static final String API_BASE_URL = "http://devices-tracking-server.herokuapp.com/auth";
+//    public static final String API_BASE_URL = "https://devices-tracking-server.herokuapp.com";
+    public static final String API_BASE_URL = "http://192.168.0.15:5000";
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -24,23 +25,15 @@ public class AuthService {
                     .baseUrl(API_BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create());
 
-    public static <S> S createService(Class<S> serviceClass) {
-        return createService(serviceClass, null, null);
-    }
 
-    public static <S> S createService(Class<S> serviceClass, String username, String password) {
-        if (username != null && password != null) {
-            String credentials = username + ":" + password;
-            final String basic =
-                    "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-
+    public static <S> S createService(Class<S> serviceClass, final String idRequestToken) {
             httpClient.addInterceptor(new Interceptor() {
                 @Override
                 public Response intercept(Interceptor.Chain chain) throws IOException {
                     Request original = chain.request();
 
                     Request.Builder requestBuilder = original.newBuilder()
-                            .header("Authorization", basic)
+                            .header("Authorization", idRequestToken)
                             .header("Accept", "application/json")
                             .method(original.method(), original.body());
 
@@ -48,7 +41,6 @@ public class AuthService {
                     return chain.proceed(request);
                 }
             });
-        }
 
         OkHttpClient client = httpClient.build();
         Retrofit retrofit = builder.client(client).build();
