@@ -1,32 +1,32 @@
 module.exports = function(config){
   config.set({
 
-    basePath : './',
+    basePath : './app/',
 
     files : [
-      'app/bower_components/angular/angular.js',
-      'app/bower_components/angular-route/angular-route.js',
-      'app/bower_components/angular-mocks/angular-mocks.js',
-      'app/components/**/*.js'
+      'bower_components/angular/angular.js',
+      'bower_components/angular-route/angular-route.js',
+      'bower_components/angular-mocks/angular-mocks.js',
+      'components/**/*.js'
     ],
 
     autoWatch : true,
 
-    frameworks: ['jasmine'],
+    colors: true,
+
+    singleRun: false,
+
+    logLevel: config.LOG_INFO,
+
+    frameworks: ['mocha', 'chai'],
 
     browsers : ['Chrome'],
 
     plugins : [
-            'karma-chrome-launcher',
-            'karma-firefox-launcher',
-            'karma-jasmine',
-            'karma-junit-reporter'
-            ],
-
-    junitReporter : {
-      outputFile: 'test_out/unit.xml',
-      suite: 'unit'
-    }
-
+            'karma-mocha',
+            'karma-chai',
+            'karma-chrome-launcher'
+    ]
+      
   });
 };
