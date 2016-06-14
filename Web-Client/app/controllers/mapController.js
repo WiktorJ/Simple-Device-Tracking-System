@@ -49,6 +49,7 @@ app.controller('mapController', function ($scope, $interval, $location, location
                         routeRequest = {
                             origin: singlePointCoordinates,
                             destination: singlePointCoordinates,
+                            waypoints: [],
                             travelMode: travelMode
                         };
                     }
