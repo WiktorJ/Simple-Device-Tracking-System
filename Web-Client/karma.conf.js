@@ -9,6 +9,12 @@ module.exports = function(config){
       'bower_components/angular-route/angular-route.js',
       'bower_components/angular-mocks/angular-mocks.js',
 
+      // External libraries files.
+      'bower_components/jquery/dist/jquery.js',
+        
+      // Custom mocks.
+      'utils/tests/googleMapsMock.js',
+
       // Script files.
       'app.js',
       'services/*.js',
@@ -16,7 +22,8 @@ module.exports = function(config){
       'components/**/*.js',
 
       // Test files.
-      'services/tests/*.js'
+      'services/tests/*.js',
+      'controllers/tests/*.js'
     ],
 
     autoWatch : true,

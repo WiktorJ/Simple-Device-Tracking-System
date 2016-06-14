@@ -28,54 +28,58 @@ app.controller('mapController', function ($scope, $interval, $location, location
 
     var locationRequest = function () {
         locationService.getLocations(userID)
-            .success(function (data) {
-                // If there is no new entry for this user, return from this function.
-                if (typeof previouslyRetrievedData[userID] != 'undefined' && previouslyRetrievedData[userID].length == data.length) {
-                    return;
+            .then(
+                function (data) {
+                    // If there is no new entry for this user, return from this function.
+                    if (typeof previouslyRetrievedData[userID] != 'undefined' && previouslyRetrievedData[userID].length == data.length) {
+                        return;
+                    }
+
+                    // Copy retrieved data as recently received (will be compared with data retrieved during next HTTP/GET request.
+                    previouslyRetrievedData[userID] = data.slice();
+
+                    var routeRequest;
+
+                    if (data.length == 0) {
+                        console.log("Nothing to show. There is no GPS data for this user.");
+                    }
+                    else if (data.length == 1) {
+                        var singlePointCoordinates = new google.maps.LatLng(data[0].latitude, data[0].longitude);
+
+                        routeRequest = {
+                            origin: singlePointCoordinates,
+                            destination: singlePointCoordinates,
+                            travelMode: travelMode
+                        };
+                    }
+                    else {
+                        var startPoint = data.shift();
+                        var endPoint = data.pop();
+                        var wayPoints = [];
+
+                        data.forEach(function (wayPoint) {
+                            wayPoints.push({
+                                location: new google.maps.LatLng(wayPoint.latitude, wayPoint.longitude),
+                                stopover: wayPoint.stop
+                            })
+                        });
+
+                        routeRequest = {
+                            origin: new google.maps.LatLng(startPoint.latitude, startPoint.longitude),
+                            destination: new google.maps.LatLng(endPoint.latitude, endPoint.longitude),
+                            waypoints: wayPoints,
+                            travelMode: travelMode
+                        };
+                    }
+
+                    $scope.routeRequest = routeRequest;
+                    calculateAndDisplayRoute(routeRequest);
+                },
+                
+                function (data) {
+                    console.log("Error " + data);
                 }
-
-                // Copy retrieved data as recently received (will be compared with data retrieved during next HTTP/GET request.
-                previouslyRetrievedData[userID] = data.slice();
-
-                var routeRequest;
-
-                if (data.length == 0) {
-                    console.log("Nothing to show. There is no GPS data for this user.");
-                }
-                else if (data.length == 1) {
-                    var singlePointCoordinates = new google.maps.LatLng(data[0].latitude, data[0].longitude);
-
-                    routeRequest = {
-                        origin: singlePointCoordinates,
-                        destination: singlePointCoordinates,
-                        travelMode: travelMode
-                    };
-                }
-                else {
-                    var startPoint = data.shift();
-                    var endPoint = data.pop();
-                    var wayPoints = [];
-
-                    data.forEach(function (wayPoint) {
-                        wayPoints.push({
-                            location: new google.maps.LatLng(wayPoint.latitude, wayPoint.longitude),
-                            stopover: wayPoint.stop
-                        })
-                    });
-
-                    routeRequest = {
-                        origin: new google.maps.LatLng(startPoint.latitude, startPoint.longitude),
-                        destination: new google.maps.LatLng(endPoint.latitude, endPoint.longitude),
-                        waypoints: wayPoints,
-                        travelMode: travelMode
-                    };
-                }
-
-                calculateAndDisplayRoute(routeRequest);
-            })
-            .error(function (data) {
-                console.log("Error " + data);
-            });
+            );
     };
 
     locationRequest();
