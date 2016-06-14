@@ -1,9 +1,4 @@
-app.controller('mapController', function ($scope, $http, $interval, $location) {
-
-    $scope.manageAccount = function () {
-        $location.path('/app/account').replace();
-    };
-
+app.controller('mapController', function ($scope, $interval, $location, locationService) {
     
     /** Initializing a map. **/
 
@@ -32,9 +27,9 @@ app.controller('mapController', function ($scope, $http, $interval, $location) {
     var userID = 0;
 
     var locationRequest = function () {
-        $http.get("https://devices-tracking-server.herokuapp.com/location/users/" + userID)
+        locationService.getLocations(userID)
             .success(function (data) {
-                // If there is no new entry for this user, return this function.
+                // If there is no new entry for this user, return from this function.
                 if (typeof previouslyRetrievedData[userID] != 'undefined' && previouslyRetrievedData[userID].length == data.length) {
                     return;
                 }
@@ -100,5 +95,12 @@ app.controller('mapController', function ($scope, $http, $interval, $location) {
             }
         });
     }
+    
+    
+    /** Application routing. **/
+    
+    $scope.manageAccount = function () {
+        $location.path('/app/account').replace();
+    };
 
 });
