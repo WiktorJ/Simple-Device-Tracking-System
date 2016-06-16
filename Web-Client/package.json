@@ -10,7 +10,7 @@
   "devDependencies": {
     "bower": "latest",
     "chai": "^3.5.0",
-    "http-server": "latest",
+    "http-server": "^0.9.0",
     "karma": "^0.13.22",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^1.0.1",

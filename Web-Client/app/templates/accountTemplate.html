@@ -3,6 +3,22 @@
     function onSignIn (googleUser) {
         console.log(googleUser);
 
+        /** Sending /auth/login POST request to server. **/
+        var idToken = googleUser.getAuthResponse().id_token;
+        var request = new XMLHttpRequest();
+
+        request.open('POST', 'http://localhost:3000/auth/login');
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        request.setRequestHeader('Accept', 'application/json');
+        request.setRequestHeader('Authorization', 'Basic ' + idToken);
+
+        request.onload = function () {
+            console.log(request.responseText);
+        };
+
+        request.send();
+
+        /** Updating view. **/
         $("#logoutButton").show();
         $("#showMapButton").show();
     }
@@ -11,7 +27,8 @@
         gapi.load('auth2,signin2', function() {
             if(gapi.auth2.getAuthInstance() == null) {
                 gapi.auth2.init({
-                    'client_id': '515631213938-2cu7dq3pmo6ms54ffrtijlr02ooh1rau.apps.googleusercontent.com'
+//                    'client_id': '515631213938-2cu7dq3pmo6ms54ffrtijlr02ooh1rau.apps.googleusercontent.com'
+                    'client_id': '583088429615-i6qhovjuj3sebds2k7k421dmt56p8agr.apps.googleusercontent.com'
                 });
             }
 
