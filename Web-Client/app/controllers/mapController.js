@@ -1,4 +1,4 @@
-app.controller('mapController', function ($scope, $interval, $location, locationService) {
+app.controller('mapController', function ($scope, $interval, $location, locationService, tokenPassingService) {
     
     /** Initializing a map. **/
 
@@ -23,20 +23,20 @@ app.controller('mapController', function ($scope, $interval, $location, location
 
     /** HTTP request to the server and preparing data to display. **/
 
-    var previouslyRetrievedData = [];
+    var previouslyRetrievedData;
     var userID = 0;
 
     var locationRequest = function () {
-        locationService.getLocations(userID)
+        locationService.getLocations(userID, tokenPassingService.getAuthToken())
             .then(
                 function (data) {
                     // If there is no new entry for this user, return from this function.
-                    if (typeof previouslyRetrievedData[userID] != 'undefined' && previouslyRetrievedData[userID].length == data.length) {
+                    if (typeof previouslyRetrievedData != 'undefined' && previouslyRetrievedData.length == data.length) {
                         return;
                     }
 
                     // Copy retrieved data as recently received (will be compared with data retrieved during next HTTP/GET request.
-                    previouslyRetrievedData[userID] = data.slice();
+                    previouslyRetrievedData = data.slice();
 
                     var routeRequest;
 
@@ -54,6 +54,9 @@ app.controller('mapController', function ($scope, $interval, $location, location
                         };
                     }
                     else {
+                        /** Google Maps API allow routes composed with at most 10 points. **/
+                        data = data.slice(Math.max(0, data.length - 10));
+
                         var startPoint = data.shift();
                         var endPoint = data.pop();
                         var wayPoints = [];
