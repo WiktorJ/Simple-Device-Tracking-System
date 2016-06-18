@@ -1,6 +1,7 @@
 app.service('dataPassingService', function () {
 
     var authToken;
+    var email;
     var uid;
 
     
@@ -11,8 +12,17 @@ app.service('dataPassingService', function () {
     this.getAuthToken = function () {
         return authToken;
     };
-    
-    
+
+
+    this.setEmail = function (mail) {
+        email = mail;
+    };
+
+    this.getEmail = function () {
+        return email;
+    };
+
+
     this.setUID = function (id) {
         uid = id;
     };

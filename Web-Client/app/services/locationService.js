@@ -1,6 +1,6 @@
 app.service('locationService', function ($q, $http) {
 
-    this.getLocations = function (userID, authToken) {
+    this.getLocations = function (userID, authToken, email) {
         var deferred = $q.defer();
 
         $http.get(
@@ -10,7 +10,10 @@ app.service('locationService', function ($q, $http) {
                 headers: {
                     'Accept': 'application/json',
                     'Authorization': authToken,
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    'Content-Type': 'application/json'
+                },
+                params: {
+                    email: email
                 }
             })
             .success(function (data) {

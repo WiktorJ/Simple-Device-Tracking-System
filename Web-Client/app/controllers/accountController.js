@@ -24,6 +24,7 @@ app.controller('accountController', function ($scope, $location, dataPassingServ
     
     $scope.showMap = function () {
         dataPassingService.setAuthToken($scope.authToken); // $scope.authToken passed by accountTemplate#onSignIn() function.
+        dataPassingService.setEmail($scope.email); // $scope.email passed by accountTemplate#onSignIn#onLoad() function.
         dataPassingService.setUID($scope.uid); // $scope.uid passed by accountTemplate#onSignIn#onLoad() function.
         $location.path('/app/map').replace();
     };

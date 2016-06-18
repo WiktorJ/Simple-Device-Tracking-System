@@ -15,11 +15,13 @@
 
         request.onload = function () {
             /** Passing UID to the controller. **/
-            var uid = JSON.parse(request.responseText).uid
+            var uid = JSON.parse(request.responseText).uid;
 
             angular.element(document).ready(function() {
                 var controllerElement = document.querySelector('#showMapButton');
                 var controllerScope = angular.element(controllerElement).scope();
+
+                controllerScope.email = googleUser.getBasicProfile().getEmail();
                 controllerScope.uid = uid;
             });
         };

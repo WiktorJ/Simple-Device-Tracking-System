@@ -26,7 +26,7 @@ app.controller('mapController', function ($scope, $interval, $location, location
     var previouslyRetrievedData;
 
     var locationRequest = function () {
-        locationService.getLocations(dataPassingService.getUID(), dataPassingService.getAuthToken())
+        locationService.getLocations(dataPassingService.getUID(), dataPassingService.getAuthToken(), dataPassingService.getEmail())
             .then(
                 function (data) {
                     // If there is no new entry for this user, return from this function.
