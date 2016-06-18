@@ -14,10 +14,17 @@
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
         request.onload = function () {
-            console.log(request.responseText);
+            /** Passing UID to the controller. **/
+            var uid = JSON.parse(request.responseText).uid
+
+            angular.element(document).ready(function() {
+                var controllerElement = document.querySelector('#showMapButton');
+                var controllerScope = angular.element(controllerElement).scope();
+                controllerScope.uid = uid;
+            });
         };
 
-        request.send();
+        request.send('email=' + googleUser.getBasicProfile().getEmail());
 
         /** Passing token to the controller. **/
         angular.element(document).ready(function() {

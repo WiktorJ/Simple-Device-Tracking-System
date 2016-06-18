@@ -1,4 +1,4 @@
-app.controller('accountController', function ($scope, $location, tokenPassingService) {
+app.controller('accountController', function ($scope, $location, dataPassingService) {
 
     /** Hiding navigation buttons by default. **/
 
@@ -23,7 +23,8 @@ app.controller('accountController', function ($scope, $location, tokenPassingSer
     /** Application routing. **/
     
     $scope.showMap = function () {
-        tokenPassingService.setAuthToken($scope.authToken); // $scope.authToken passed by accountTemplate#onSignIn() function.
+        dataPassingService.setAuthToken($scope.authToken); // $scope.authToken passed by accountTemplate#onSignIn() function.
+        dataPassingService.setUID($scope.uid); // $scope.uid passed by accountTemplate#onSignIn#onLoad() function.
         $location.path('/app/map').replace();
     };
 

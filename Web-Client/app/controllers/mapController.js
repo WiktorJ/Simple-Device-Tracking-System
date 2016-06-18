@@ -1,4 +1,4 @@
-app.controller('mapController', function ($scope, $interval, $location, locationService, tokenPassingService) {
+app.controller('mapController', function ($scope, $interval, $location, locationService, dataPassingService) {
     
     /** Initializing a map. **/
 
@@ -24,10 +24,9 @@ app.controller('mapController', function ($scope, $interval, $location, location
     /** HTTP request to the server and preparing data to display. **/
 
     var previouslyRetrievedData;
-    var userID = 0;
 
     var locationRequest = function () {
-        locationService.getLocations(userID, tokenPassingService.getAuthToken())
+        locationService.getLocations(dataPassingService.getUID(), dataPassingService.getAuthToken())
             .then(
                 function (data) {
                     // If there is no new entry for this user, return from this function.
