@@ -3,18 +3,17 @@
     function onSignIn (googleUser) {
         console.log(googleUser);
 
-        /** Sending /auth/login POST request to server. **/
+        /* Sending /auth/login POST request to server. */
         var idToken = googleUser.getAuthResponse().id_token;
         var request = new XMLHttpRequest();
 
-        request.open('POST', 'http://localhost:3000/auth/login');
-//        request.open('POST', 'https://devices-tracking-server.herokuapp.com//auth/login');
+        request.open('POST', 'https://devices-tracking-server.herokuapp.com/auth/login');
         request.setRequestHeader('Accept', 'application/json');
         request.setRequestHeader('Authorization', idToken);
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
         request.onload = function () {
-            /** Passing UID to the controller. **/
+            /* Passing UID to the controller. */
             var uid = JSON.parse(request.responseText).uid;
 
             angular.element(document).ready(function() {
@@ -28,14 +27,14 @@
 
         request.send('email=' + googleUser.getBasicProfile().getEmail());
 
-        /** Passing token to the controller. **/
+        /* Passing token to the controller. */
         angular.element(document).ready(function() {
             var controllerElement = document.querySelector('#showMapButton');
             var controllerScope = angular.element(controllerElement).scope();
             controllerScope.authToken = idToken;
         });
 
-        /** Updating view. **/
+        /* Updating view. */
         $("#logoutButton").show();
         $("#showMapButton").show();
     }
@@ -44,8 +43,7 @@
         gapi.load('auth2,signin2', function() {
             if(gapi.auth2.getAuthInstance() == null) {
                 gapi.auth2.init({
-                    'client_id': '515631213938-2cu7dq3pmo6ms54ffrtijlr02ooh1rau.apps.googleusercontent.com',
-//                    'client_id': '583088429615-npskj15ed319bim2k7a43ied661hm3jq.apps.googleusercontent.com'
+                    'client_id': '583088429615-npskj15ed319bim2k7a43ied661hm3jq.apps.googleusercontent.com'
                 });
             }
 

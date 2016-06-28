@@ -20,8 +20,7 @@ app.service('locationService', function ($q, $http) {
         var deferred = $q.defer();
 
         $http.get(
-            // 'https://devices-tracking-server.herokuapp.com/location/users/' + userID,
-            'http://localhost:3000/location/users/' + userID,
+            'https://devices-tracking-server.herokuapp.com/location/users/' + userID,
             {
                 headers: {
                     'Accept': 'application/json',

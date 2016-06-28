@@ -98,8 +98,7 @@ app.controller('mapController', function ($scope, $interval, $location, location
     };
 
     locationRequest();
-    // TODO: Poll server for location data periodically. Uncomment this line on production. Now commented because of economy reasons.
-    // $interval(locationRequest, 5000);
+    $interval(locationRequest, 5000);
 
 
     /* Route directions drawing. */
@@ -124,7 +123,7 @@ app.controller('mapController', function ($scope, $interval, $location, location
     /**
      * @callback callback
      * @description Routes to Account Management page.
-     */ 
+     */
     $scope.manageAccount = function () {
         $location.path('/app/account').replace();
     };
