@@ -37,10 +37,17 @@ Android Studio too. However the way of running mobile client is usually up to yo
 
 # Documentation
 
-## Web Client documentation.
+## Web Server
+Web Server documentation is written using JSDoc library. In order to generate docs, please clone server repository, enter it and type:
+```
+jsdoc -c conf.json -r
+```
+If you didn't install JSDoc globally, please specify explicit path to JSDoc executable in project files.
+
+## Web Client
 Web Client documentation is written using JSDoc library. In order to generate docs, please type:
 ```
 cd Web-Client
 jsdoc -c conf.json -r
 ```
-If you didn't install JSDoc globally, please specify explicit path to JSDoc executable.
+If you didn't install JSDoc globally, please specify explicit path to JSDoc executable in project files.
