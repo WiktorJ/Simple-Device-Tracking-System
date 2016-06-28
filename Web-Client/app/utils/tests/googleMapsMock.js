@@ -1,4 +1,7 @@
-/** Based on: https://github.com/sttts/google-maps-mock **/
+/* Based on: https://github.com/sttts/google-maps-mock */
+/**
+ * @file Defines mock of Google Maps API objects required for unit testing.
+ */
 
 window.google = {
     maps: {

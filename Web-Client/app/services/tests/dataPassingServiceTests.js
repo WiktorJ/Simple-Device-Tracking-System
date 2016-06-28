@@ -1,3 +1,7 @@
+/**
+ * @file Describes unit test suites for dataPassingService.
+ */
+
 describe('dataPassingService.js', function () {
 
     var dataPassingServiceInstance;

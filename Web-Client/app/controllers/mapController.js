@@ -1,6 +1,14 @@
+/**
+ * @file Defines AngularJS controller used for map instantiating and manipulating.
+ */
+
+/**
+ * @module controllers/mapController
+ * @description Controller module for managing Google Map.
+ */
 app.controller('mapController', function ($scope, $interval, $location, locationService, dataPassingService) {
     
-    /** Initializing a map. **/
+    /* Initializing a map. */
 
     if (!map) {
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -11,7 +19,7 @@ app.controller('mapController', function ($scope, $interval, $location, location
     }
 
 
-    /** Initializing map utils. **/
+    /* Initializing map utils. */
 
     var travelMode = google.maps.TravelMode.WALKING;
 
@@ -21,10 +29,14 @@ app.controller('mapController', function ($scope, $interval, $location, location
     });
 
 
-    /** HTTP request to the server and preparing data to display. **/
+    /* HTTP request to the server and preparing data to display. */
 
     var previouslyRetrievedData;
 
+    /**
+     * @callback callback
+     * @description Invokes location request, processes retrieved data and invokes displaying them on the map.
+     */
     var locationRequest = function () {
         locationService.getLocations(dataPassingService.getUID(), dataPassingService.getAuthToken(), dataPassingService.getEmail())
             .then(
@@ -53,7 +65,7 @@ app.controller('mapController', function ($scope, $interval, $location, location
                         };
                     }
                     else {
-                        /** Google Maps API allow routes composed with at most 10 points. **/
+                        /* Google Maps API allow routes composed with at most 10 points. */
                         data = data.slice(Math.max(0, data.length - 10));
 
                         var startPoint = data.shift();
@@ -90,8 +102,12 @@ app.controller('mapController', function ($scope, $interval, $location, location
     // $interval(locationRequest, 5000);
 
 
-    /** Route directions drawing. **/
-
+    /* Route directions drawing. */
+    /**
+     * @function calculateAndDisplayRoute
+     * @param routeRequest {Object} Object defined by Google Maps API used to display route on the map.
+     * @description Sends request to Google Maps server via Google Maps API Directions Service, retrieves, processes and displays data on the map.
+     */
     function calculateAndDisplayRoute(routeRequest) {
         directionsService.route(routeRequest, function (response, status) {
             if (status === google.maps.DirectionsStatus.OK) {
@@ -104,8 +120,11 @@ app.controller('mapController', function ($scope, $interval, $location, location
     }
     
     
-    /** Application routing. **/
-    
+    /* Application routing. */
+    /**
+     * @callback callback
+     * @description Routes to Account Management page.
+     */ 
     $scope.manageAccount = function () {
         $location.path('/app/account').replace();
     };

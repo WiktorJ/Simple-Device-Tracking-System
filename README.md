@@ -34,3 +34,13 @@ Note that if you are building on Windwos OS and ```npm install``` command gives 
 ## Android application
 Android application has been created using Android Studio development tool, so we encourage to run or emulate this application using
 Android Studio too. However the way of running mobile client is usually up to you.
+
+# Documentation
+
+## Web Client documentation.
+Web Client documentation is written using JSDoc library. In order to generate docs, please type:
+```
+cd Web-Client
+jsdoc -c conf.json -r
+```
+If you didn't install JSDoc globally, please specify explicit path to JSDoc executable.

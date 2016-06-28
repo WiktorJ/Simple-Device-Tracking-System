@@ -1,3 +1,7 @@
+/**
+ * @file Describes unit test suites for locationService.
+ */
+
 describe('locationService.js', function () {
 
     var $httpBackendMock, defer, locationServiceInstance;

@@ -1,3 +1,7 @@
+/**
+ * @file Describes unit test suites for mapController.
+ */
+
 describe('mapController.js', function () {
 
     var $scope;
