@@ -1,53 +1,57 @@
 # Simple-Device-Tracking-System
-Project connected to Web Applications Technology course.
+The Simple-Device-Tracking-System is an application built for tracking mobile devices using GPS signals. This project contains:
+ 1. An Android app that allows a device to send its GPS locations to a web server.
+ 2. A web server, which stores all the data and provides an API to read them.
+ 3. A web client, which provides a possibility to monitor positions of devices on a map in real time.
 
-Project contains:
- 1. Simple Android app that allow device to send its localization to server.
- 2. Server stores all data and provide endpoints to read them.
- 3. Web Client provides possibility to monitor position of devices in real time.
+Maps and localization services are provided by the Google API.
+  
+This project has been created within the Internet Applications Technologies classes held at the AGH University of Science and Technology, Cracow.
 
+## Installation
 
-Maps and localization are provided by Google API.
-
-# Installation
-
-## Web server
-Web server is a Node.js application. To install and run it locally, type following commands:
+### Web server
+The web server is a Node.js application. To install and run it locally, type following commands:
 ```
 npm install
 npm start
 ```
-Now type in your web browser: ```localhost:3000```. The server is running there.
+Now type in your web browser: 
+```
+http://localhost:3000
+``` 
+The server is running there.
 
-Please note that server-side code is also deployed on [Heroku](https://devices-tracking-server.herokuapp.com/).
-
-## Web client
-Web client is an AngularJS application. To install and run it, type following command:
+### Web client
+The web client is an AngularJS application. To install and run it, type the following command:
 ```
 npm start
 ```
-Now type in your web browser: ```localhost:8000```. The client-side web application is running there. Please note that
-```npm start``` script executes: ```npm install``` and ```bower install``` commands. You don't have to call these commands explicitly.
+Now type in your web browser: 
+```
+http://localhost:8000
+```
+The client-side web application is running there. Please note that the `npm start` script executes `npm install` and `bower install` commands. You don't have to call them explicitly.
 
-Note that if you are building on Windwos OS and ```npm install``` command gives you an error, you need have installed at least MS Visual C++ Build Tools.
+Note that if you are building on a Windwos OS and the `npm install` command gives you an error, you need to have at least MS Visual C++ Build Tools installed.
 
-## Android application
-Android application has been created using Android Studio development tool, so we encourage to run or emulate this application using
-Android Studio too. However the way of running mobile client is usually up to you.
+### Android application
+Android application has been created using the Android Studio development tool, so we encourage you to run or emulate this application using the same environment. However the way of running a mobile client is up to you.
 
-# Documentation
+## Documentation
 
-## Web Server
-Web Server documentation is written using JSDoc library. In order to generate docs, please clone server repository, enter it and type:
+### Web server
+The web server documentation is written using the JSDoc library. In order to generate docs, please enter the server repository and type:
 ```
 jsdoc -c conf.json -r
 ```
-If you didn't install JSDoc globally, please specify explicit path to JSDoc executable in project files.
+If you didn't install the JSDoc globally, please specify an explicit path to the JSDoc executable in project files.
 
-## Web Client
-Web Client documentation is written using JSDoc library. In order to generate docs, please type:
+### Web client
+The web client documentation is written using the JSDoc library, too. In order to generate docs, please type:
 ```
 cd Web-Client
 jsdoc -c conf.json -r
 ```
-If you didn't install JSDoc globally, please specify explicit path to JSDoc executable in project files.
+If you didn't install the JSDoc globally, please specify an explicit path to the JSDoc executable in project files.
+
